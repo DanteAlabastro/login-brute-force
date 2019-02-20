@@ -1,3 +1,7 @@
+# Python 2.7.10
+# - Does not work in Python 3. Yet.
+
+
 import socket
 
 # HTTP POST Request grabbed from POST to login form at http://attackdirect.samsclass.info/python/login1.php
